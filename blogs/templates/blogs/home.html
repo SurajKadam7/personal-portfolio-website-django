@@ -1,0 +1,27 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content_from_page %}
+
+    <h1>Welcome to my Blogging page</h1>
+
+    {% comment %} pluralize will make blogs if blogs more than one else only blog {% endcomment %}
+    <h2>Suraj Has Written : {{all_blogs_data.count}} Blog{{all_blogs_data.count|pluralize}}</h2>
+
+    {% for current_blog in all_blogs_data%}
+
+    {% comment %} here the .id is like index start from 1 in for loop is looping don't conduse with urls blog_id {% endcomment %}
+    <a href="{%  url 'blogs:blog_detail' current_blog.id %}">   
+        <h2>{{current_blog.blog_tital}}</h2>
+    </a>
+
+    {% comment %} Note in django I have noticed that i can't simly add spaces anywhere in this given code is we add space between date: 'M d Y' it will through error {% endcomment %}
+    <h2>{{current_blog.date_of_bloag_post| date:'M d Y'|upper}}</h2> 
+
+    {% comment %} truncatechars keep only 100 charectors from the description on description page so that if any one wan't to see the page they can simply click on page and view full info {% endcomment %}
+    {% comment %} if our description contains any html tags h1 etc etc the to deal with that we can use |safe it will formate according to html and if we don't want to include these tag use |striptags {% endcomment %}
+    <p>{{current_blog.blog_description|striptags| truncatechars:100}}</p>
+
+
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content_from_page %}
+
+
+    <h1>
+        Welcom to the home page of my website
+    </h1>
+
+    {% comment %} adding link for the blog page on home page of app {% endcomment %}
+    <br>
+    <a href="{% url 'blogs:all_blog' %}">
+        Blogs
+    </a>
+    <br>
+
+    {% load static %}
+
+    <img src="{% static 'portfolio/robbert.webp' %}" alt="robbert" width="500" height="600">
+    <br>
+    <a href="{% static 'portfolio/suraj_resume_100522.pdf'%}"> Resume</a>
+
+
+
+
+
+    {% comment %} note here our project_data is a list so we simply can't write {{ project_data }} we need to loop through it  {% endcomment %}
+
+    {% for project in projects_data%}
+
+    {% comment %} note here our project object have four attributes tital, description, image, url {% endcomment %}
+
+    <h1>{{project.tital}}</h1>
+
+    <p>{{project.description}}</p>
+
+    {% comment %} path_of_the_image = {{project.image.url}} {% endcomment %}
+    <img src="{{project.image.url}} " alt="this is image of bady yoda" hight>
+    <br>
+
+    {% comment %} we want project have url then only it disply it so we use if statement {% endcomment %}
+    {% if project.url %}
+        <a href="{{ project.url }}">
+            link
+        </a>
+    {% endif %}
+
+    {% endfor %}
+
+
+{% endblock %}
+
+
+
+
